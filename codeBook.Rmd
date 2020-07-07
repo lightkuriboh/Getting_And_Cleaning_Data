@@ -1,6 +1,6 @@
 ---
-title: "codeBook"
-author: "kuriboh"
+title: "Project Code Book"
+author: "Light Kuriboh"
 date: "7/7/2020"
 output: pdf_document
 ---
