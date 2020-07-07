@@ -1,0 +1,144 @@
+---
+title: "codeBook"
+author: "kuriboh"
+date: "7/7/2020"
+output: pdf_document
+---
+
+## Data Code Book  
+This is an code book that describes the variables, the data, and any work that I performed at this project.  
+
+### Project details  
+* [Data file](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)  
+* [Data source](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)  
+
+### Requirements  
+* Merges the training and the test sets to create one data set.  
+* Extracts only the measurements on the mean and standard deviation for each measurement.  
+* Uses descriptive activity names to name the activities in the data set.  
+* Appropriately labels the data set with descriptive variable names.  
+* From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.  
+
+### Code explanation  
+Explanation is included in run_analysis.R file.  
+
+### Data description  
+The final data table consists of 81 variables with 180 observations.  
+
+Except the first two columns, the other variable are average of time series  
+of specific measurements, for each subject and each activity.  
+
+There are 6 activities and 30 subjects, so we have 180 observations.  
+
+The activities values are all descriptive, and subjects' names are number,  
+because we only have their ID instead of their names.  
+
+### Work explanation  
+Firstly, I merged train and test data sets into one by rbind() function.  
+They basically are one data set but split, then I just need to bind them by row.  
+
+Then I read the columns names from features.txt and add it to the merged data.  
+
+To extract only mean values and standard deviation, I used the dplyr::select()  
+function with grepl().  
+grepl() with operator (or) got the column names with 'mean' and 'std' substring.  
+
+Then I looked in the activities_labels.txt file to get the corresponding names  
+for activities id in the y_train.txt and y_test.txt, then replaced them.  
+
+For renaming the variables, I noticed that the current variable's name are just  
+shortened words. After replacing them with full words, I got appropriately  
+labels for the variables.  
+I also remove some deprecated characters for more beautiful labels.  
+
+To get the mean of values by each activity and subject, I used dplyr::by_group()  
+to group the table into parts indicated by activity and subject.  
+Them dplyr::summarise_all() will calculate mean() for each other columns.  
+
+### Variable name  
+subject_name: Id of the person who join the experiment.  
+activity_name: Name of the activities the data author took experiment on.  
+other columns: As described above, their names are descriptive enough.  
+
+They are average of:  
+
+[1] "time_series_of-Body-Accellation-Mean_Value-by_X_axis"                                   
+[2] "time_series_of-Body-Accellation-Mean_Value-by_Y_axis"                                   
+[3] "time_series_of-Body-Accellation-Mean_Value-by_Z_axis"                                   
+[4] "time_series_of-Body-Accellation-Standard_Deviation_Value-by_X_axis"                     
+[5] "time_series_of-Body-Accellation-Standard_Deviation_Value-by_Y_axis"                     
+[6] "time_series_of-Body-Accellation-Standard_Deviation_Value-by_Z_axis"                     
+[7] "time_series_of-Gravity-Accellation-Mean_Value-by_X_axis"                                
+[8] "time_series_of-Gravity-Accellation-Mean_Value-by_Y_axis"                                
+[9] "time_series_of-Gravity-Accellation-Mean_Value-by_Z_axis"                                
+[10] "time_series_of-Gravity-Accellation-Standard_Deviation_Value-by_X_axis"                  
+[11] "time_series_of-Gravity-Accellation-Standard_Deviation_Value-by_Y_axis"                  
+[12] "time_series_of-Gravity-Accellation-Standard_Deviation_Value-by_Z_axis"                  
+[13] "time_series_of-Body-Accellation-Jerk-Mean_Value-by_X_axis"                              
+[14] "time_series_of-Body-Accellation-Jerk-Mean_Value-by_Y_axis"                              
+[15] "time_series_of-Body-Accellation-Jerk-Mean_Value-by_Z_axis"                              
+[16] "time_series_of-Body-Accellation-Jerk-Standard_Deviation_Value-by_X_axis"                
+[17] "time_series_of-Body-Accellation-Jerk-Standard_Deviation_Value-by_Y_axis"                
+[18] "time_series_of-Body-Accellation-Jerk-Standard_Deviation_Value-by_Z_axis"                
+[19] "time_series_of-Body-Gyroscope-Mean_Value-by_X_axis"                                    
+[20] "time_series_of-Body-Gyroscope-Mean_Value-by_Y_axis"                                    
+[21] "time_series_of-Body-Gyroscope-Mean_Value-by_Z_axis"                                    
+[22] "time_series_of-Body-Gyroscope-Standard_Deviation_Value-by_X_axis"                      
+[23] "time_series_of-Body-Gyroscope-Standard_Deviation_Value-by_Y_axis"                      
+[24] "time_series_of-Body-Gyroscope-Standard_Deviation_Value-by_Z_axis"                      
+[25] "time_series_of-Body-Gyroscope-Jerk-Mean_Value-by_X_axis"                               
+[26] "time_series_of-Body-Gyroscope-Jerk-Mean_Value-by_Y_axis"                               
+[27] "time_series_of-Body-Gyroscope-Jerk-Mean_Value-by_Z_axis"                               
+[28] "time_series_of-Body-Gyroscope-Jerk-Standard_Deviation_Value-by_X_axis"                 
+[29] "time_series_of-Body-Gyroscope-Jerk-Standard_Deviation_Value-by_Y_axis"                 
+[30] "time_series_of-Body-Gyroscope-Jerk-Standard_Deviation_Value-by_Z_axis"                 
+[31] "time_series_of-Body-Accellation-Magnitude-Mean_Value"                                   
+[32] "time_series_of-Body-Accellation-Magnitude-Standard_Deviation_Value"                     
+[33] "time_series_of-Gravity-Accellation-Magnitude-Mean_Value"                                
+[34] "time_series_of-Gravity-Accellation-Magnitude-Standard_Deviation_Value"                  
+[35] "time_series_of-Body-Accellation-Jerk-Magnitude-Mean_Value"                              
+[36] "time_series_of-Body-Accellation-Jerk-Magnitude-Standard_Deviation_Value"                
+[37] "time_series_of-Body-Gyroscope-Magnitude-Mean_Value"                                    
+[38] "time_series_of-Body-Gyroscope-Magnitude-Standard_Deviation_Value"                      
+[39] "time_series_of-Body-Gyroscope-Jerk-Magnitude-Mean_Value"                               
+[40] "time_series_of-Body-Gyroscope-Jerk-Magnitude-Standard_Deviation_Value"                 
+[41] "Fast_Fourier_Transform_of-Body-Accelation-Mean_Value-by_X_axis"                        
+[42] "Fast_Fourier_Transform_of-Body-Accellation-Mean_Value-by_Y_axis"                        
+[43] "Fast_Fourier_Transform_of-Body-Accellation-Mean_Value-by_Z_axis"                        
+[44] "Fast_Fourier_Transform_of-Body-Accellation-Standard_Deviation_Value-by_X_axis"          
+[45] "Fast_Fourier_Transform_of-Body-Accellation-Standard_Deviation_Value-by_Y_axis"          
+[46] "Fast_Fourier_Transform_of-Body-Accellation-Standard_Deviation_Value-by_Z_axis"          
+[47] "Fast_Fourier_Transform_of-Body-Accellation-Mean_Frequency-by_X_axis"                    
+[48] "Fast_Fourier_Transform_of-Body-Accellation-Mean_Frequency-by_Y_axis"                    
+[49] "Fast_Fourier_Transform_of-Body-Accellation-Mean_Frequency-by_Z_axis"                    
+[50] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Mean_Value-by_X_axis"                   
+[51] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Mean_Value-by_Y_axis"                   
+[52] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Mean_Value-by_Z_axis"                   
+[53] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Standard_Deviation_Value-by_X_axis"     
+[54] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Standard_Deviation_Value-by_Y_axis"     
+[55] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Standard_Deviation_Value-by_Z_axis"     
+[56] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Mean_Frequency-by_X_axis"               
+[57] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Mean_Frequency-by_Y_axis"               
+[58] "Fast_Fourier_Transform_of-Body-Accellation-Jerk-Mean_Frequency-by_Z_axis"               
+[59] "Fast_Fourier_Transform_of-Body-Gyroscope-Mean_Value-by_X_axis"                         
+[60] "Fast_Fourier_Transform_of-Body-Gyroscope-Mean_Value-by_Y_axis"                         
+[61] "Fast_Fourier_Transform_of-Body-Gyroscope-Mean_Value-by_Z_axis"                         
+[62] "Fast_Fourier_Transform_of-Body-Gyroscope-Standard_Deviation_Value-by_X_axis"           
+[63] "Fast_Fourier_Transform_of-Body-Gyroscope-Standard_Deviation_Value-by_Y_axis"           
+[64] "Fast_Fourier_Transform_of-Body-Gyroscope-Standard_Deviation_Value-by_Z_axis"             
+[65] "Fast_Fourier_Transform_of-Body-Gyroscope-Mean_Frequency-by_X_axis"                       
+[66] "Fast_Fourier_Transform_of-Body-Gyroscope-Mean_Frequency-by_Y_axis"                       
+[67] "Fast_Fourier_Transform_of-Body-Gyroscope-Mean_Frequency-by_Z_axis"                       
+[68] "Fast_Fourier_Transform_of-Body-Accelation-Magnitude-Mean_Value"                          
+[69] "Fast_Fourier_Transform_of-Body-Accelation-Magnitude-Standard_Deviation_Value"            
+[70] "Fast_Fourier_Transform_of-Body-Accelation-Magnitude-Mean_Frequency"                      
+[71] "Fast_Fourier_Transform_of-Body-Body-Accellation-Jerk-Magnitude-Mean_Value"                
+[72] "Fast_Fourier_Transform_of-Body-Body-Accellation-Jerk-Magnitude-Standard_Deviation_Value"  
+[73] "Fast_Fourier_Transform_of-Body-Body-Accellation-Jerk-Magnitude-Mean_Frequency"            
+[74] "Fast_Fourier_Transform_of-Body-Body-Gyroscope-Magnitude-Mean_Value"                      
+[75] "Fast_Fourier_Transform_of-Body-Body-Gyroscope-Magnitude-Standard_Deviation_Value"        
+[76] "Fast_Fourier_Transform_of-Body-Body-Gyroscope-Magnitude-Mean_Frequency"                  
+[77] "Fast_Fourier_Transform_of-Body-Body-Gyroscope-Jerk-Magnitude-Mean_Value"                  
+[78] "Fast_Fourier_Transform_of-Body-Body-Gyroscope-Jerk-Magnitude-Standard_Deviation_Value"  
+[79] "Fast_Fourier_Transform_of-Body-Body-Gyroscope-Jerk-Magnitude-Mean_Frequency"  
+
