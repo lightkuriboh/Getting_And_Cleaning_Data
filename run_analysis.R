@@ -8,7 +8,7 @@ library(stringr)
 ########################################################################################### Preparation
 ### Set working directory
 
-working_dir <- 'raw_data/getdata_project_data_UCI_HAR_Dataset'
+working_dir <- 'raw_data'
 setwd(working_dir)
 getwd()
 
