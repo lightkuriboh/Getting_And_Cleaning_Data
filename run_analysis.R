@@ -122,7 +122,7 @@ replace_list <- list(
     'Gyro' = 'Gyroscope-',
     'Jerk' = 'Jerk-',
     'std' = 'Standard_Deviation_Value-',
-    'Acc' = 'Accelation-',
+    'Acc' = 'Accellation-',
     'Mag' = 'Magnitude-',
     'X' = 'by_X_axis',
     'Y' = 'by_Y_axis',
