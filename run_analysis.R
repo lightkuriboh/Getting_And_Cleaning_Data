@@ -191,3 +191,4 @@ new_data_set <- my_merged_data %>%
 
 ### Write the recently created data set to a file
 write.table(new_data_set, '../../tiny_tidy_data/finalDataSet.txt', row.names = F)
+
